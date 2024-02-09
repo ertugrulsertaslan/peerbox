@@ -15,6 +15,7 @@ module.exports = {
 		assetModuleFilename: "asset/[name].[hash:6][ext][query]",
 		clean: true,
 	},
+	devtool: "source-map",
 	module: {
 		rules: [
 			{
