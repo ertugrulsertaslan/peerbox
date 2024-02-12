@@ -54,6 +54,7 @@ const App = () => {
 	const [isConnected, setIsConnected] = useState(null);
 	const [modalData, setModalData] = useState({visible:false, title:"", body:"", cancelText:"", successText: "", onCancel: ()=>null, onSuccess: ()=>null});
 	const [showTutorial, setShowTutorial] = useState(isHost);
+	const [downloads, setDownloads] = useState({}) 
 	
 	function showModal(title, body, cancelText, successText, onCancel, onSuccess, visible) {
 
@@ -446,7 +447,9 @@ const App = () => {
 				} else if (event.type == "chunk") {
 					setSharedFiles(sharedFiles => {
 						let percentage = fileCatcher(event, sharedFiles);
-						console.log(percentage);
+						setDownloads({
+							[event.payload.fileId]:percentage,
+						});
 						return sharedFiles;
 					})
 				}
@@ -521,10 +524,13 @@ const App = () => {
 						fileName={f.name}
 						isLocal={f.owner.id == localPeerIdNoPrefix}
 						onDelete={() => removeFileHandler(f.id)}
-						onDownload={() => downloadFileHandler(f.id)} />
+						onDownload={() => downloadFileHandler(f.id)}
+						downloadPercentage={downloads?.[f.id] || 0} 
+						/>
 					)}
 				</ul>
 			</div>
+			
 		</div>
 	);
 };
