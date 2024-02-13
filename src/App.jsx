@@ -447,9 +447,13 @@ const App = () => {
 				} else if (event.type == "chunk") {
 					setSharedFiles(sharedFiles => {
 						let percentage = fileCatcher(event, sharedFiles);
+						if (percentage >= 100) {
+							percentage = 0;
+						}
 						setDownloads({
 							[event.payload.fileId]:percentage,
 						});
+						
 						return sharedFiles;
 					})
 				}
@@ -509,11 +513,11 @@ const App = () => {
 				<h4 className="font-semibold mt-2 text-slate-400">Files</h4>
 				{showTutorial ?
 					<div className="hidden lg:block">
-						<img className="absolute -translate-x-full h-48 top-8 -left-8" src={arrow1} alt="" srcset="" />
+						<img className="absolute -translate-x-full h-48 top-8 -left-8" src={arrow1} alt=""  />
 						<p className="absolute top-0 -left-64 font-bold text-2xl">1. Add files</p>
-						<img className="absolute translate-x-full h-48 -top-8 -right-8" src={arrow2} alt="" srcset="" />
+						<img className="absolute translate-x-full h-48 -top-8 -right-8" src={arrow2} alt="" />
 						<p className="absolute top-40 -right-96 font-bold text-2xl">2. Share it!</p>
-						<img className="absolute translate-x-full w-32 top-48 -right-64" src={monkeyFace} alt="" srcset="" />
+						<img className="absolute translate-x-full w-32 top-48 -right-64" src={monkeyFace} alt="" />
 					</div> : <></>}
 				
 				<ul className="flex items-center px-4 pt-4 pb-2 rounded-xl border border-stone-200  flex-col mt-4">
